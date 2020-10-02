@@ -8,6 +8,7 @@ Vue.use(VueRouter)
 import Home from '../components/HomeComponent.vue'
 import CategoryList from '../components/pages/category/ListComponent.vue'
 import CategoryCrate from '../components/pages/category/CreateComponent'
+import CategoryEdit from '../components/pages/category/EditComponent'
 
 const routes = new VueRouter({
 
@@ -31,6 +32,12 @@ const routes = new VueRouter({
             path: '/category-create',
             component: CategoryCrate,
             name: 'category-create'
+        },
+
+         {
+            path: '/category-edit/:id',
+            component: CategoryEdit,
+            name: 'category-edit'
         },
 
     ]

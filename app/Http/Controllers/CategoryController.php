@@ -66,9 +66,10 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
-        //
+        $post = Category::find($id);
+        return response()->json($post);
     }
 
     /**
@@ -78,19 +79,32 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request,$id)
     {
-        //
-    }
 
+        $request->validate([
+            'name' => 'required|unique:categories,name,'.$id,
+        ]);
+
+        $post = Category::find($id);
+        $post->name = $request->get('name');
+        $post->slug = Str::slug($request->get('name'));
+        $post->save();
+
+        return response()->json('success',200);
+    }
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        //
+        $post = Category::find($id);
+
+        $post->delete();
+
+        return response()->json('success',200);
     }
 }
